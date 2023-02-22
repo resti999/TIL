@@ -27,7 +27,8 @@
 </build>
 ```
 # Spring MVC (스프링 웹 MVC) 강의 03 - 메이븐을 이용한 기본 웹 프로젝트 생성하기
-
+* web.xml 복사해오기
+* maven.compiler.source 로 java 1.8설정
 
 # Spring MVC (스프링 웹 MVC) 강의 04 - Dispatcher Servlet 라이브러리 설정하기
 * 메이븐 프로젝트에 스프링을 얹는다?
