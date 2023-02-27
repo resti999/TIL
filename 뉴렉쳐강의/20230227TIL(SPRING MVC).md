@@ -38,6 +38,14 @@
 ![image](https://user-images.githubusercontent.com/40667871/221581647-086a73f2-71a5-44e0-89b3-201b25719454.png)
 * 페이지 각 파트 위치 잡는법
 * tiles가 제공하는 taglib사용 - taglib사용하기 위해서는 maven에 library추가 필요
+```
+<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
+		<dependency>
+		    <groupId>org.apache.tiles</groupId>
+		    <artifactId>tiles-jsp</artifactId>
+		    <version>3.0.8</version>
+		</dependency>
+```
 * layout.jsp
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -142,3 +150,11 @@
 </beans>
 ```
 * javax/servlet/jsp/jstl/core/Config library도 있어야만 정상적인 실행이 됨
+```
+<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+```
