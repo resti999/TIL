@@ -328,7 +328,7 @@ public class ListConroller implements Controller{
 	
 	<mvc:resources location="/static/" mapping="/**"></mvc:resources>
 	
-	<bean id="noticeService" class="com.newlecture.web.service.NoticeService"/>
+	<bean id="noticeService" class="com.newlecture.web.service.jdbc.JDBCNoticeService"/>
 
 </beans>
 ```
