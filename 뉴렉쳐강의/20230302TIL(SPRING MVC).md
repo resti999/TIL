@@ -409,3 +409,72 @@ public class JDBCNoticeService implements NoticeService {
   	<async-supported>true</async-supported>
   </servlet>
 ```
+
+# Spring MVC (스프링 웹 MVC) 강의 25 - 객체 DI를 Annotaion으로 변경하기
+* spring은 2.0부터 annotation가능
+![image](https://user-images.githubusercontent.com/40667871/222437796-b245d664-dc9b-4b63-9e76-5f0e5ff3c5c7.png)
+
+* Service객체만 annotation으로, sevlet-context.xml의 이부분 annotation으로 변경
+```
+<bean id="/notice/list" class="com.newlecture.web.controller.notice.ListConroller">
+    	<property name="noticeService" ref="noticeService"/> <!--name 은 ListController의 setter  -->
+    </bean> 
+```
+* listcontroller , JDBCNoticeService di를 xml에서 annotation으로 변경하는 과정
+* ListController noticeService setter위에 @Autowired 추가->import까지
+* servlet-context.xml 에 xmlns:context 추가
+```
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd"
+```
+* servlet-context.xml 에 	<context:annotation-config/>추가
+* autowired는 setter, constructor, 멤버변수 3가지 중 하나 위에 가능.
+* JDBC가 의존하는 dataSource도 autowired로 수정
+* 모든 xml파일에 context설정 해줘야한다.
+* 다음 강의에서 di 뿐 아니라 객체생성도 annotation으로 대체
+
+# Spring MVC (스프링 웹 MVC) 강의 26 - Annotation으로 서비스 객체 생성하기
+* JDBCNoticeService객체 xml->annotation  : 생성할 class 위 에 @Component  (import org.springframework.stereotype.Component;)
+* Component를 발견하려면 scan범위 설정해야함 package로 ->이거하면 context:annotation-config빼도된다.
+```
+  <context:component-scan base-package="com.newlecture.web.service"/>	
+```
+* Component를 세분화해서 표현하는게 Conroller, Service, Repository annotation - 역할별로 의미 보여줌
+
+# Spring MVC (스프링 웹 MVC) 강의 27 - Annotation으로 URL 매핑하기
+* annotation으로 Conroller들객체화
+* servlet-context.xml에 context:conponent scan으로 package포함
+* Controller에 Controller annotation 붙일 때 변경사항 ***********
+* 이전 controller
+```
+package com.newlecture.web.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+public class IndexController implements Controller {
+
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		ModelAndView mv = new ModelAndView("root.index");
+		mv.addObject("data", "Hello Spring MVC~");
+//		mv.setViewName("/WEB-INF/view/index.jsp");
+		return mv;
+	}
+
+
+	
+}
+
+```
+* 변경 후 contorller
+```
+* servlet-context.xml 에  <mvc:annotation-driven/> 반드시 추가 ***** -> component(controller) annotation은 단순히 객체를 메모리에 올리는 일, 그 후 url맵핑은 <mvc:annotation-driven/>이 진행 -@RequestMapping("/index")와 연결되는 부분
+```
+* RequestMapping() annotation은 jsp파일 주소가지 맵핑해줌 view resolver이용해서
