@@ -242,3 +242,170 @@ public class JDBCNoticeService implements NoticeService {
 	</bean>
 ```
 *
+
+# Spring MVC (스프링 웹 MVC) 강의 24 - 스프링 설정파일 분리하기
+* * -servlet이라는 정해진 이름, 정해진 위치(WEB-INF안)에 놔야만 했음->원하는 위치, 이름으로 저장할 수 있다?
+* 설정 파일 여러개로 나눌것
+* 설정 파일 나누는 이유 - 협업 시에 편하려고(각자 파트)
+* service-context.xml 생성 후 service에 관련된 설정 복사
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521/xepdb1"/>
+		<property name="username" value="NEWLEC"/>
+		<property name="password" value="24rkwk"/>
+	</bean>
+	
+	<bean id="noticeService" class="com.newlecture.web.service.jdbc.JDBCNoticeService">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+   
+   
+</beans>
+```
+* servlet-context.xml dispatcher,껍데기에 관한 내용 복사
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	
+	<bean id="/index" class="com.newlecture.web.controller.IndexController"/>  
+    <bean id="/notice/list" class="com.newlecture.web.controller.notice.ListConroller">
+    	<property name="noticeService" ref="noticeService"/> <!--name 은 ListController의 setter  -->
+    </bean>  
+    <bean id="/notice/detail" class="com.newlecture.web.controller.notice.DetailController"/>  
+	
+	<bean
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<property name="order" value="1" /> <!-- viewResolver가 2개 이상일 때 우선 순위 설정 -->
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions" value="/WEB-INF/tiles.xml" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+		<property name="order" value="2" />
+	</bean>
+	
+	<mvc:resources location="/static/" mapping="/**"></mvc:resources>
+
+
+   
+</beans>
+```
+* web.cml에 dispatcher관련 설정 변경, spring이 제공하는 listner 톰캣이 시작하거나 끝나거나 이벤트를 처리할 수있는녀석? contextloader를 dispatcherservlet이 이용할 수 있다...
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+  version="4.0"
+  metadata-complete="true">
+  
+  
+  <listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>
+		/WEB-INF/spring/service-context.xml
+		/WEB-INF/spring/security-context.xml
+	</param-value>
+  </context-param>
+  
+  
+  
+  <servlet>
+  	<servlet-name>dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>dispatcher</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+
+  
+
+
+
+  <display-name>Welcome to Tomcat</display-name>
+  <description>
+     Welcome to Tomcat
+  </description>
+
+</web-app>
+
+```
+* org.springframework.web.servlet.DispatcherServlet이 메모리에 올라가는 순간? url 첫번째 요청이 올 때! url요청 오기 전에 설정이 올라가있게 하는법 : <load-on-startup>1</load-on-startup>
+```
+  <servlet>
+  	<servlet-name>dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>dispatcher</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+```
+* 서블릿을 비동기로 올라가게 하는 방법 :<async-supported>true</async-supported>
+```
+<servlet>
+  	<servlet-name>dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  	<async-supported>true</async-supported>
+  </servlet>
+```
