@@ -167,4 +167,43 @@ public class HomeController {
 ```
 
 # Spring MVC (스프링 웹 MVC) 강의 32 - @RestController와 한글출력 설정
-*  
+* @RestController - restful을 반환하는 controller?-> 문서를 반환하는 것이 아닌 마치 method위에 ResponseBody가 있는 효과-> 문자 출력한단 의미 -> javascript 개발자들에게 데이터 제공할 때 이렇게 제공한다.
+* classname이 중복인 클래스가 있으면 IoC Container에서 객체를 만들 때 id로 class이름을 자동으로 적기 때문에 id 중복이 일어남 -> 해결법: @RestController("apiNoticeController")으로 명시적으로 id이름 정해주면 된다. 
+* servlet-context.xml 의 <mvc:annotation-driven /> : url요청이 있을 때 annotation과 맵핑해주는 설정
+* 한글깨짐 해결법 : spring framework의 converter사용
+```
+<mvc:annotation-driven>
+		<mvc:message-converters> <!-- @ResponseBody로 String 처리할때 한글처리 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+```
+
+# Spring MVC (스프링 웹 MVC) 강의 33 - JSON 출력하기
+* 데이터 구조 종류 : XML, CSV, JSON - JSON이 가장 많이 사용됨
+* RestController를 통해 객체를 바로 반환하면 JSON형태로 변환됨(SPRING에서 해줌)
+* json으로 출력 위한 lib 추가 (maven)
+* 객체를 JSON으로 바꿔주는건 위의 converter에 MessageConverter에 내장돼 있다.
+```
+<dependency>
+	<groupId>com.fasterxml.jackson.core</groupId>
+	<artifactId>jackson-databind</artifactId>
+	<version>2.11.2</version>
+</dependency>
+```
+
+# Spring MVC (스프링 웹 MVC) 강의 34 - 지금까지 다루었던 내용과 이번에 다루게 될 사용자 입력 5가지
+* 배운내용
+![image](https://user-images.githubusercontent.com/40667871/222916490-5079d4a8-197a-41ab-bce7-c602d0354704.png)
+* 배울내용 Front Controller의 입력부분(spring mvc의 마지막 기능)
+* DI, AOP, transaction 들은 그냥 Spring,  front controller에 의한 mvc구현은 spring mvc
+* 사용자 입력 갑의 종류
+![image](https://user-images.githubusercontent.com/40667871/222916577-da73c00b-63ad-4dd4-811c-0a423065c84b.png)
+* POST로 입력될 땐 문자열 뿐 아니라 파일형식은 binary형식으로 전달됨
+
