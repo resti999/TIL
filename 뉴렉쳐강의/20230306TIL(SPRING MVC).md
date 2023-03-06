@@ -64,34 +64,34 @@ String p(쿼리 변수 이름과 같아야함)만 해도 클라이언트 요청�
    ```
    package com.newlecture.web.controller.customer.admin.board;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+	import org.springframework.stereotype.Controller;
+	import org.springframework.web.bind.annotation.RequestMapping;
+	import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller("adminNoticeController")
-@RequestMapping("/admin/board/notice/")
-public class NoticeController { // <bean name="noticeController" classes=""
-	
-	@RequestMapping("list")
-	public String list() {
-		return "";
+	@Controller("adminNoticeController")
+	@RequestMapping("/admin/board/notice/")
+	public class NoticeController { // <bean name="noticeController" classes=""
+
+		@RequestMapping("list")
+		public String list() {
+			return "";
+		}
+
+		@RequestMapping("reg")
+		@ResponseBody
+		public String reg(String title, String content) {
+			return String.format("title:%s<br> content:%s", title, content);
+		}
+
+		@RequestMapping("edit")
+		public String edit() {
+			return "";
+		}
+
+		@RequestMapping("del")
+		public String del() {
+			return "";
+		}
 	}
-	
-	@RequestMapping("reg")
-	@ResponseBody
-	public String reg(String title, String content) {
-		return String.format("title:%s<br> content:%s", title, content);
-	}
-	
-	@RequestMapping("edit")
-	public String edit() {
-		return "";
-	}
-	
-	@RequestMapping("del")
-	public String del() {
-		return "";
-	}
-}
 
    ```
