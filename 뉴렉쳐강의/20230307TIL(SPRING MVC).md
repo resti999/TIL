@@ -74,4 +74,79 @@
 ```
 
 # Spring MVC (스프링 웹 MVC) 강의 42 - POST 입력 #4 (한글 입력이 깨지는 문제 )
-*
+* 데이터 인코딩 방식
+![image](https://user-images.githubusercontent.com/40667871/223432650-bd551284-29fb-4302-930e-456e5a0c3bba.png)
+* request encoding방식 변경 : 1. 톰캣 자체 설정 2.서블릿마다 설정
+* 서블릿마다 request .setCharacterEncoding("UTF-8")설정하기 번거롭다 -> **필터**를 이용
+* 서블릿 필터 : 여러개 사용 가능
+* 서블릿 필터 사용예 : 인코딩, 권한 인증
+![image](https://user-images.githubusercontent.com/40667871/223433233-65debd39-5f5c-4554-a69e-74f2fd121990.png)
+* spring 필터 설정 **web.xml**에 설정
+```
+<filter>
+		<filter-name>charaterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>charaterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+```
+
+# Spring MVC (스프링 웹 MVC) 강의 43 - POST 입력 #5(파일 업로드 설정하기)
+* 기본인코딩 데이터 전달 방식
+![image](https://user-images.githubusercontent.com/40667871/223436373-ccb66805-4e68-47e5-b01f-9afcbc4c3553.png)
+* binary 데이터 전달 방식 : multipart/form-data
+![image](https://user-images.githubusercontent.com/40667871/223436590-c0fe8b4e-4637-42fc-bf10-54e448516083.png)
+* 서버에서 multipart/form-data 방식으로 데이터 받는 설정(servlet-context.xml)
+```
+<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="314572800" />
+	</bean>
+```
+* html form tag에서도 인코딩 방식 바꿔줘야함 : <form action="reg" method="post" enctype="multipart/form-data">
+* apache가 제공하는 file lib도 있어야한다. pom.xml
+```
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version>
+</dependency>
+```
+* file 선택 html
+```
+<tr>
+    <th>첨부파일</th>
+    <td colspan="3" class="text-align-left text-indent"><input type="file"
+	    name="file" /> </td>
+</tr>
+```
+* NoticeConroller 코드
+```
+@RequestMapping("reg")
+	@ResponseBody
+	public String reg(String title, String content,MultipartFile file, String category, String[] foods, String food) {
+		
+		long size = file.getSize();
+		String fileName = file.getOriginalFilename();
+		System.out.printf("fileName:%s, fileSize:%d\n", fileName, size);
+		
+		for(String food1 : foods)
+			System.out.println(food1);
+		
+		return String.format("title:%s<br> content:%s<br>category:%s<br>food:%s", title, content,category,food);
+	}
+```
+	
+# Spring MVC (스프링 웹 MVC) 강의 44 - POST 입력 #6(물리경로 얻기와 파일 저장하기)
+* 
