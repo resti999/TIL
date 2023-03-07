@@ -149,4 +149,80 @@
 ```
 	
 # Spring MVC (스프링 웹 MVC) 강의 44 - POST 입력 #6(물리경로 얻기와 파일 저장하기)
-* 
+? Servlet Context란?
+* 파일 저장하는 법
+   * File saveFile = new File(realPath);
+   * multipartFile.transferTo(saveFile);
+* 시스템 dir 얻는법. 배포 후의 경로 고려(동적으로 얻어오는 법)
+![image](https://user-images.githubusercontent.com/40667871/223443637-7512f83d-2127-44fe-8871-4426bb22a06e.png)
+* servletContext를 얻어야 realPath를 얻을 수 있다.
+* servletContext얻는 방법
+   * 함수내에서만 쓴다면 매개변수로 HttpServletRequest 를 받아서  request.getServletContext();를 통해  servletContext를 얻는다.
+   * 클래스 전역에서 사용한다면 멤버변수로 ServletContext ctx; 선언 후 위에 @Autowired annotaion붙이기
+* 배포 dir은 개발(이클립스) dir와 다르다
+* 사용예시 NoticeController
+```
+package com.newlecture.web.controller.customer.admin.board;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+@Controller("adminNoticeController")
+@RequestMapping("/admin/board/notice/")
+public class NoticeController { // <bean name="noticeController" classes=""
+	
+	@RequestMapping("list")
+	public String list() {
+		return "";
+	}
+	
+	@RequestMapping("reg")
+	@ResponseBody
+	public String reg(String title, String content,MultipartFile file, String category, String[] foods, String food, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		long size = file.getSize();
+		String fileName = file.getOriginalFilename();
+		System.out.printf("fileName:%s, fileSize:%d\n", fileName, size);
+		
+		//파일 저장을 위해 경로지정
+		ServletContext ctx=request.getServletContext();
+		String webPath = "/static/upload";
+		String realPath = ctx.getRealPath(webPath);
+		System.out.printf("realPath: %s\n", realPath);
+		//파일 업로드할 폴더 있는지 확인
+		File savePath = new File(realPath);
+		if(!savePath.exists()) // 경로 실제 존재 확인 -> 경로가 없으면
+			savePath.mkdirs(); // mkdir와 다르게 중간에 빠진 경로 있으면 다 만들어줌
+		//os별 path 구분자로 경로 뒤에 파일 이름 넣기
+		realPath+=File.separator+fileName;
+		File saveFile = new File(realPath);
+		//multipart 객체를 통해 파일 저장
+		file.transferTo(saveFile);
+		
+		
+		for(String food1 : foods)
+			System.out.println(food1);
+		
+		return String.format("title:%s<br> content:%s<br>category:%s<br>food:%s", title, content,category,food);
+	}
+	
+	@RequestMapping("edit")
+	public String edit() {
+		return "";
+	}
+	
+	@RequestMapping("del")
+	public String del() {
+		return "";
+	}
+}
+
+```
