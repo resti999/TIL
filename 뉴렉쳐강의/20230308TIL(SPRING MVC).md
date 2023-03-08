@@ -236,3 +236,26 @@ public class NoticeController { // <bean name="noticeController" classes=""
 }
 
 ```
+
+# Sping Boot 2.x Quick Start 강의 01 - 스프링 부트란?
+* spring은  was 위에 servlet/jsp 위에 얹어지는 프레임워크
+* ![image](https://user-images.githubusercontent.com/40667871/223723333-32dcbc5f-ac22-42d7-99f7-4c572fc8a141.png)
+* was xml 설정, servlet/jsp 설정, spring 설정 , lib설정등이 번거로움
+* was 설치하지마라, servlet/jsp 필요한 lib세팅, spring관련 lib들 하나로 모아놓음 -> boot
+* spring dependency를 하나로 뭉쳐놓음, 최소한의 configure
+* 기존의 Spring Framework를 이용한 웹 개발
+![image](https://user-images.githubusercontent.com/40667871/223724425-1c57adb4-f1a6-4b89-8b34-af80a5865bde.png)
+* boot가 해결해주는것
+![image](https://user-images.githubusercontent.com/40667871/223724622-a1a9b2c0-0bc5-492a-9a10-6548dd72d1c3.png
+
+# Sping Boot 2.x Quick Start 강의 02 - 학습개요
+![image](https://user-images.githubusercontent.com/40667871/223725607-71cca0b3-0871-4cb3-96e1-7ba008233b05.png)
+* mvc 기반으로 service, dao 계층 만듬
+* view page는 jsp 이후 timeleaf도 살펴봄
+* java라는 runtime환경에서 main 언어는 java
+* persistence(영속성,데이터 db에 넣는 작업) 은 Mybatis 후, JPA+Hibernate
+* db는 오라클
+* 인증, 권한 담당은 spring security
+![image](https://user-images.githubusercontent.com/40667871/223726237-2f1708e1-106c-49a7-a630-4d4b9f5b3365.png)
+
+
