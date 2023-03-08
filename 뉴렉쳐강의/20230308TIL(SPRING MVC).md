@@ -246,7 +246,7 @@ public class NoticeController { // <bean name="noticeController" classes=""
 * 기존의 Spring Framework를 이용한 웹 개발
 ![image](https://user-images.githubusercontent.com/40667871/223724425-1c57adb4-f1a6-4b89-8b34-af80a5865bde.png)
 * boot가 해결해주는것
-![image](https://user-images.githubusercontent.com/40667871/223724622-a1a9b2c0-0bc5-492a-9a10-6548dd72d1c3.png
+![image](https://user-images.githubusercontent.com/40667871/223724622-a1a9b2c0-0bc5-492a-9a10-6548dd72d1c3.png)
 
 # Sping Boot 2.x Quick Start 강의 02 - 학습개요
 ![image](https://user-images.githubusercontent.com/40667871/223725607-71cca0b3-0871-4cb3-96e1-7ba008233b05.png)
