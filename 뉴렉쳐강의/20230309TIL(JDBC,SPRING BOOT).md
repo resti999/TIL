@@ -65,3 +65,9 @@ public class HomeController {
 # Sping Boot 2.x Quick Start 강의 05 - 수업용 HTML 파일 준비하기
 * 스프링 웹 MVC 강의용 html.zip파일 다운
 * spring boot는 src 밑에 main 밑에 webapp(root폴더)를 직접 생성해줘야한다?wepapp은 동적인 파일(jsp등)들의 home dir -> spring boot의 이미지, js,css,html등의 static파일들은  src/main/resources/static폴더 안에 넣는다.(고정)
+* static 폴더에 정적파일들 넣었는데 로드 안된 문제 해결
+   * 정적 리소스 location종류는 총 4가지 , ResourceProperties에 정의되어있다.
+      * classpath:/META-INF/resources/
+      * classpath:/resources/
+      * classpath:/static/
+      * classpath:/public/ ->  src/main/resources 안에 public폴더를 만들고 그 안에 넣었더니 root로 잡히면서 로드가 됐음
