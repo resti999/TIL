@@ -23,5 +23,45 @@
 * Spring 다른 강의에서 다운 완료
 
 # Sping Boot 2.x Quick Start 강의 04 - Spring Boot Starter 프로젝트 만들기
-* 
+* spring starter project 생성
+* tomcat을 통해 servlet을 사용할 때는 main함수를 사용안했음. spring boot를 사용하면 tomcat도 spring안으로 포함돼서 main함수가 생긴다.
+```
+package com.newlecture.web;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringWebApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringWebApplication.class, args);
+	}
+
+}
+
+```
+* controller 만드는법 : 무조건 기본패키지(처음설정한-예제에서 com.newlecture.web) 이후 계층에 클래스를 만들어야한다. 
+* 아무 설정없이 어노테이션만으로 가능하다.
+```
+package com.newlecture.web.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+	
+	@RequestMapping("/index")
+	public String adsf() {
+		return "Hello Spring Boot";
+	}
+}
+
+```
+* spring boot를 실행하는 방법 : main 함수에서 ctrl+f11  -> 기존 spring은 톰캣을 실행해야만 했음
+* 완전 편리하다
+
+# Sping Boot 2.x Quick Start 강의 05 - 수업용 HTML 파일 준비하기
+* 스프링 웹 MVC 강의용 html.zip파일 다운
+* spring boot는 src 밑에 main 밑에 webapp(root폴더)를 직접 생성해줘야한다?wepapp은 동적인 파일(jsp등)들의 home dir -> spring boot의 이미지, js,css,html등의 static파일들은  src/main/resources/static폴더 안에 넣는다.(고정)
