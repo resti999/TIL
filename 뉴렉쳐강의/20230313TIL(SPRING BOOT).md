@@ -42,3 +42,61 @@ public class NoticeController {
 ```
 
 # Sping Boot 2.x Quick Start 강의 08 - Mapping, View 위치 바로 잡기
+* 공통되는 맵핑은 클래스 위에 @RequestMapping으로 올리기
+* @RequestMapping은 옛날 방식이고 @GetMapping/@PostMapping으로 하는 추세
+* jsp 는 WEB-INF 안에 무조건 숨겨야함 왜? controller를 통해 model을 받아서 jsp가 실행돼야 하기  때문. jsp뿐 아니라 사용자가 직접 요청해서는 안되는 다양한 설정파일들을 모두 WEB-INF안에 숨긴다.
+* WEB-INF에 넣어서 요청되는 url과 달라졌기 때문에 return 문자열에 전체 경로 넣어줘야한다.
+* NoticeController 변경본
+```
+package com.newlecture.web.controller.customer;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/customer/notice/")
+public class NoticeController {
+	@RequestMapping("list")
+	public String list(Model model) {
+		
+		
+		model.addAttribute("test", "Hello~");
+		
+		return "/WEB-INF/view/customer/notice/list.jsp";
+	}
+	
+	@RequestMapping("detail")
+	public String detail() {
+		return "/WEB-INF/view/customer/notice/detail .jsp";
+	}
+}
+```
+
+# Sping Boot 2.x Quick Start 강의 09 - Resource View Resolver 설정하기
+![image](https://user-images.githubusercontent.com/40667871/224724664-70859b93-b32c-44e2-9301-8c6b90309354.png)
+![image](https://user-images.githubusercontent.com/40667871/224724778-2a104b25-044a-416e-b772-8380b10c0f2f.png)
+![image](https://user-images.githubusercontent.com/40667871/224724826-54633e80-20bc-4633-97a2-3462ba5c54d1.png)
+
+
+* Dispatcher(발차원) : controller 앞의 controller front controller( spring mvc에서 제공)
+* view resolver : dispatcher가 특정 view를 찾아주도록 도와주는 lib
+* resource view resolver : 디렉토리 내에서 특정 파일명을 갖고 찾아주는게 resource view resolver
+* tiles view resolver : tiles의 구성설정에서 있는 설정에서 찾아서 view파일 반환
+* application.properties 파일에서 resource view resolver설정하기
+```
+spring.mvc.view.prefix=/WEB-INF/view
+spring.mvc.view.suffix=.jsp
+```
+
+# Sping Boot 2.x Quick Start 강의 10 - DevTools 설정하기
+* 출력 문자열을 수정하면 프로그램을 다시 시작해야 한다.
+* devtools lib : 코드가 수정되면 자동으로 다시 시작해주는 도구 - pom.xml에 dependency 설정 필요(spring-boot의 lib임)
+```
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+```
+* 버전은 spring-boot에서 지정해줘서 빼야하는듯
