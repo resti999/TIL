@@ -53,4 +53,18 @@ public class NoticeController {
 ![image](https://user-images.githubusercontent.com/40667871/225028889-00f37d83-138b-488e-a9f6-13635a3a2c51.png)
 
 # Sping Boot 2.x Quick Start 강의 14 - Tiles 지시서 작성하기
-* 
+* 과거 페이지 집중화 방식
+![image](https://user-images.githubusercontent.com/40667871/225029251-a96b961e-4710-46ac-b40e-894b9d9f1d0e.png)
+![image](https://user-images.githubusercontent.com/40667871/225029359-2de73ef0-18e4-476f-aeb8-e0ae3d877980.png)
+* main page말고 주위의 틀조차 include문을 복사붙여넣기 하기 번거로움 -> 페이지가 많아지면 그만큼 일을 해야함
+* tiles lib로 처리할 경우
+![image](https://user-images.githubusercontent.com/40667871/225029722-7581d155-5ae6-4c3f-b027-e5db32c5cbda.png)
+* tiles 는 apache에서 제공하는 lib(은퇴해서 홈페이지에 없음),  프론트단에서 timeleaf라는 페이지 모듈화 툴이 있음
+* tiles 설정 갖고오는법
+   * apache.org ->Attic(은퇴 or 완벽(Tiles) ->tiles-> doc 3.0 ->tutorial ->creating tiles page->create a definition xml 빼고 복사->WEB-INF/tiles.xml 에 저장
+* MVC Model2 Tiles
+![image](https://user-images.githubusercontent.com/40667871/225032653-a8a02fbb-1a8e-4298-9fd6-96b8eceb9730.png)
+* tiles lib설정과 객체화 과정 필요(다음 수업)
+
+#
+
