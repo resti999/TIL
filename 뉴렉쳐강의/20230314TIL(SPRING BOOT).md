@@ -43,3 +43,14 @@ public class NoticeController {
 # Sping Boot 2.x Quick Start 강의 13 - 페이지 공통분모 집중화
 * 일반적 페이지 
 ![image](https://user-images.githubusercontent.com/40667871/225013024-140b05b0-d189-47b6-bde4-349656f4354b.png)
+* 가장 중요한 페이지(알맹이)는 맨 끝에 있는 페이지
+![image](https://user-images.githubusercontent.com/40667871/225023896-79c0d9c5-014f-4fd8-a074-c3b3e16094da.png)
+* 코드 수정을 적게하기 위해서
+* 집중화 도구 tiles
+![image](https://user-images.githubusercontent.com/40667871/225024302-a60b5d4e-49fa-4f5b-b4c5-e96be79272b8.png)
+* 기존에는 <jsp:include page=" 부분페이지경로"/> 로 jsp파일을 도중에 포함시켰다
+* customer page들과 admin page들의 main, header, footer, layout,aside, visual로 파일 나눔
+![image](https://user-images.githubusercontent.com/40667871/225028889-00f37d83-138b-488e-a9f6-13635a3a2c51.png)
+
+# Sping Boot 2.x Quick Start 강의 14 - Tiles 지시서 작성하기
+* 
