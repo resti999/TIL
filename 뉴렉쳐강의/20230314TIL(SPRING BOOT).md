@@ -161,9 +161,10 @@ public class NoticeController {
 	
 	@RequestMapping("detail")
 	public String detail() {
-		return "/customer/notice/detail";
+		return "customer.notice.detail";
 	}
 }
+
 
 ```
 * customer layout.jsp   : 포인트는 tiles  taglib추가부분, tiles.xml의 attribute이름과 같아야한다. 
