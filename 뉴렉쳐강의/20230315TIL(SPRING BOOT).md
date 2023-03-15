@@ -184,4 +184,136 @@ public class HomeController {
 * mybatis 사용
 ![image](https://user-images.githubusercontent.com/40667871/225343170-f5516b55-6888-495a-ad95-c4dae76f98be.png)
 
-#
+# Sping Boot 2.x Quick Start 강의 20 - Service와 Dao 구현체 준비하기
+* service interface, class들과 dao interface 기본 골격
+* com.newlecture.web.controller.admin.board
+```
+package com.newlecture.web.controller.admin.board;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.newlecture.web.entity.Notice;
+import com.newlecture.web.service.NoticeService;
+
+@Controller("adminNoticeController")
+@RequestMapping("/admin/board/notice/")
+public class NoticeController {
+	
+	@Autowired
+	private NoticeService service;
+	
+	@RequestMapping("list")
+	public String list() {
+		
+		List<Notice> list = service.getList();
+		
+		return "admin.board.notice.list";
+	}
+	
+	
+	@RequestMapping("detail")
+	public String detail() {
+		
+		Notice notice = service.get(1);
+		
+		return "admin.board.notice.detail";
+	}
+	
+	@RequestMapping("reg")
+	public String reg() {
+		return "admin.board.notice.reg";
+	}
+	
+	@RequestMapping("del")
+	public String del() {
+		return "";
+	}
+	
+}
+
+```
+* com.newlecture.web.entity.Notice;
+```
+package com.newlecture.web.entity;
+
+public class Notice {
+
+}
+
+```
+* com.newlecture.web.service.NoticeService
+```
+package com.newlecture.web.service;
+
+import java.util.List;
+
+import com.newlecture.web.entity.Notice;
+
+public interface NoticeService {
+
+	List<Notice> getList();
+
+	Notice get(int i);
+
+}
+
+```
+* com.newlecture.web.service.NoticeServiceImp
+```
+package com.newlecture.web.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.newlecture.web.dao.NoticeDao;
+import com.newlecture.web.entity.Notice;
+
+public class NoticeServiceImp implements NoticeService {
+	
+	@Autowired
+	private NoticeDao noticeDao;
+	
+	
+	@Override
+	public List<Notice> getList() {
+		
+		List<Notice> list = noticeDao.getList();
+		
+		
+		return list;
+	}
+
+	@Override
+	public Notice get(int id) {
+		
+		Notice notice = noticeDao.get(id);
+		
+		return notice;
+	}
+	
+}
+
+```
+* com.newlecture.web.dao.NoticeDao
+```
+package com.newlecture.web.dao;
+
+import java.util.List;
+
+import com.newlecture.web.entity.Notice;
+
+public interface NoticeDao {
+
+	List<Notice> getList();
+
+	Notice get(int id);
+
+}
+
+```
+* 다음시간에 mybatis를 사용해 dao구현체 만들어봄
