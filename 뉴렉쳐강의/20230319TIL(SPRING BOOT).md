@@ -63,12 +63,243 @@ spring.datasource.password=24rkwk
 ![image](https://user-images.githubusercontent.com/40667871/226155300-1ca16451-1ab2-4b76-9081-9fede2f699b9.png)
 
 # Sping Boot 2.x Quick Start 강의 23 - Mapper 객체를 이용해서 공지목록 출력하기
+* mysql은 datasource설정 때 servertimezone설정 해야함
+* Datasource application.properties에 설정해도 에러나면서 안될 때
+    * 에러 내용: Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured. Reason: Failed to determine a suitable driver class
+    * Configuration class로 대체
+    ```
+    package com.newlecture.web.config;
+
+import javax.sql.DataSource;
+
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class DBConfiguration {
+	
+	@Bean
+	public DataSource datasource() {
+		return DataSourceBuilder.create()
+				.driverClassName("oracle.jdbc.driver.OracleDriver")
+				.url("jdbc:oracle:thin:@localhost:1521/xepdb1")
+				.username("newlec")
+				.password("24rkwk")
+				.build();
+	}
+}
+
+    ```
 * Mapper 도 객체 생성하는 역할
 * customer NoticeController  NoticeService interface 멤버변수로 추가, 사용할 메서드에서 사용
-* NoticeService 구현체 클래스에 Service annotation으로 객체 생성
-* Notice entity 멤버변수 생성해주기
-* list.jsp 데이터 받아서 jstl로 반복적으로 notice list뿌려주기
+```
+package com.newlecture.web.controller.customer;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.newlecture.web.entity.Notice;
+import com.newlecture.web.service.NoticeService;
+
+@Controller
+@RequestMapping("/customer/notice/")
+public class NoticeController {
+	
+	@Autowired
+	private NoticeService service;
+	
+	
+	@RequestMapping("list")
+	public String list(Model model) {
+		
+		List<Notice> list = service.getList();
+		
+		model.addAttribute("list", list);
+		
+//		return "/customer/notice/list"; ResourceViewResolver
+		return "customer.notice.list";  // TilesViewResolver
+	}
+	
+	@RequestMapping("detail")
+	public String detail() {
+		return "customer.notice.detail";
+	}
+}
+
+```
+* NoticeService 구현체 클래스에 Service annotation으로 객체 생성 및 DAO interface autowired
+```
+package com.newlecture.web.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.newlecture.web.dao.NoticeDao;
+import com.newlecture.web.entity.Notice;
+
+
+@Service
+public class NoticeServiceImp implements NoticeService {
+	
+	@Autowired
+	private NoticeDao noticeDao;
+	
+	
+	@Override
+	public List<Notice> getList() {
+		
+		List<Notice> list = noticeDao.getList();
+		
+		
+		return list;
+	}
+
+	@Override
+	public Notice get(int id) {
+		
+		Notice notice = noticeDao.get(id);
+		
+		return notice;
+	}
+	
+}
+
+```
+* Notice entity 멤버변수 생성해주기 - db 테이블과 컬럼수, 자료형 동일하게, getter,setter field 사용 생성자 생성
+```
+package com.newlecture.web.entity;
+
+import java.util.Date;
+
+public class Notice {
+	private int id;
+	private String title;
+	private String writerId;
+	private String content;
+	private Date regdate;
+	private int hit;
+	private String files;
+	private boolean pub;
+	
+	public Notice() {
+	}
+
+	public Notice(int id, String title, String writerId, String content, Date regdate, int hit, String files,
+			boolean pub) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.writerId = writerId;
+		this.content = content;
+		this.regdate = regdate;
+		this.hit = hit;
+		this.files = files;
+		this.pub = pub;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getWriterId() {
+		return writerId;
+	}
+
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+
+	public String getFiles() {
+		return files;
+	}
+
+	public void setFiles(String files) {
+		this.files = files;
+	}
+
+	public boolean isPub() {
+		return pub;
+	}
+
+	public void setPub(boolean pub) {
+		this.pub = pub;
+	}
+
+	@Override
+	public String toString() {
+		return "Notice [id=" + id + ", title=" + title + ", writerId=" + writerId + ", content=" + content
+				+ ", regdate=" + regdate + ", hit=" + hit + ", files=" + files + ", pub=" + pub + "]";
+	}
+
+	
+
+	
+
+	
+}
+
+```
+* list.jsp 데이터 받아서 jstl로 반복적으로 notice list뿌려주기
+```
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:forEach var="n" items="${list}">
+					<tr>
+						<td>${n.id}</td>
+						<td class="title indent text-align-left"><a href="detail.html">${n.title}</a></td>
+						<td>${n.writerId}</td>
+						<td>
+							${n.regdate}	
+						</td>
+						<td>${n.hit}</td>
+					</tr>
+					</c:forEach>	
+```
+
+# 
 
 
 
