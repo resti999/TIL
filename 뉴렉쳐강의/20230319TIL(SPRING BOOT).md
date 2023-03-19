@@ -63,7 +63,12 @@ spring.datasource.password=24rkwk
 ![image](https://user-images.githubusercontent.com/40667871/226155300-1ca16451-1ab2-4b76-9081-9fede2f699b9.png)
 
 # Sping Boot 2.x Quick Start 강의 23 - Mapper 객체를 이용해서 공지목록 출력하기
-*
+* Mapper 도 객체 생성하는 역할
+* customer NoticeController  NoticeService interface 멤버변수로 추가, 사용할 메서드에서 사용
+* NoticeService 구현체 클래스에 Service annotation으로 객체 생성
+* Notice entity 멤버변수 생성해주기
+* list.jsp 데이터 받아서 jstl로 반복적으로 notice list뿌려주기
+
 
 
 
