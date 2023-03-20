@@ -215,4 +215,199 @@ mybatis.mapper-locations=classpath:com/newlecture/web/dao/mybatis/mapper/*.xml
    * Eclipse XML Editors 설치
 
 # Sping Boot 2.x Quick Start 강의 29 - NoticeService 인터페이스 정의하기
-* 
+* admin NoticeService가 제공해줘야할 목록들
+   * 페이지를 요청할 때 : List<Notice> getList() ,int  getCount()
+   * 검색을 요청할 때 :List<Notice> getList(String field, String query)
+   * 페이지버튼 누를 때 :List<Notice> getViewList(int page, String field, String query), int getCount(String field, String query)
+   * 일괄공개를 요청할 때 : int updatePubAll(int[] pubids, int[] closeIds)
+   * 일괄삭제를 요청할 때 : int deleteAll(int[] ids)
+   * 자세한 페이지 요청할 때 : Notice get(id) , Notice getNext(id), Notice getPrev(id)
+   * 수정 페이지를 요청할 때 : int update(Notice notice), int delete(int id), int insert(Notice notice)
+* com.newlecture.web.service.NoticeService
+```
+package com.newlecture.web.service;
+
+import java.util.List;
+
+import com.newlecture.web.entity.Notice;
+
+public interface NoticeService {
+
+	// 페이지를 요청할 때
+	List<Notice> getList();
+
+	// 검색을 요청할 때
+	List<Notice> getList(String field, String query);
+
+	// 페이지를 요청할 때
+	List<Notice> getList(int page, String field, String query);
+
+	int getCount();
+
+	int getCount(String field, String query);
+
+	// 자세한 페이지 요청할 때
+	Notice getNext(int id);
+
+	Notice getPrev(int id);
+
+	Notice get(int id);
+
+	// 일괄공개를 요청할 때
+	int updatePubAll(int[] pubids, int[] closeIds);
+
+	// 일괄삭제를 요청할 때
+	int deleteAll(int[] ids);
+
+	// 수정 페이지를 요청할 때
+	int update(Notice notice);
+
+	int delete(int id);
+
+	int insert(Notice notice);
+
+}
+
+```
+	
+# Sping Boot 2.x Quick Start 강의 30 - NoticeDao 인터페이스 정의하기
+* NoticeServiceImp 구현 및 NoticeDao 정의
+* overload함수 인자 젤 많은것 구현 후 나머진 재 호출 방식
+* com.newlecture.web.service.NoticeServiceImp
+```
+package com.newlecture.web.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.newlecture.web.dao.NoticeDao;
+import com.newlecture.web.entity.Notice;
+
+
+@Service
+public class NoticeServiceImp implements NoticeService {
+	
+	@Autowired
+	private NoticeDao noticeDao;
+	
+
+
+	@Override
+	public List<Notice> getList() {
+		return getList(1, "title","");
+	}
+
+	@Override
+	public List<Notice> getList(String field, String query) {
+		return getList(1, field, query);
+	}
+	
+	@Override
+	public List<Notice> getList(int page, String field, String query) {
+		
+		int size=10;
+		int startNum=1+(page-1)*size; //page 1->0, 2->10
+		int endNum=page*size; //page 1->0, 2->10
+		
+		
+		
+		List<Notice> list = noticeDao.getList(startNum,endNum,field,query);
+		
+		
+		return list;
+	}
+	
+	@Override
+	public Notice get(int id) {
+		
+		Notice notice = noticeDao.get(id);
+		
+		return notice;
+	}
+	
+	@Override
+	public int getCount() {
+		return getCount("title","");
+	}
+
+	@Override
+	public int getCount(String field, String query) {
+		return noticeDao.getCount(field,query);
+	}
+
+	@Override
+	public Notice getNext(int id) {
+		return noticeDao.getNext(id);
+	}
+
+	@Override
+	public Notice getPrev(int id) {
+		return noticeDao.getPrev(id);
+	}
+
+	@Override
+	public int updatePubAll(int[] pubIds, int[] closeIds) {
+		return noticeDao.updatePubAll(pubIds,closeIds);
+	}
+
+	@Override
+	public int deleteAll(int[] ids) {
+		// TODO Auto-generated method stub
+		return noticeDao.deleteAll(ids);
+	}
+
+	@Override
+	public int update(Notice notice) {
+		return noticeDao.update(notice);
+	}
+
+	@Override
+	public int delete(int id) {
+		// TODO Auto-generated method stub
+		return noticeDao.delete(id);
+	}
+
+	@Override
+	public int insert(Notice notice) {
+		// TODO Auto-generated method stub
+		return noticeDao.insert(notice);
+	}
+	
+}
+
+```
+* com.newlecture.web.dao.NoticeDao
+```
+package com.newlecture.web.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Select;
+
+import com.newlecture.web.entity.Notice;
+
+
+@Mapper //이 어노테이션을 읽어서 IoC컨테이너에 객체 담아줌
+public interface NoticeDao {
+	
+
+	List<Notice> getList(int startNum, int endNum, String field, String query);
+	int getCount(String field, String query);
+	
+	Notice get(int id);
+	Notice getNext(int id);
+	Notice getPrev(int id);
+	
+	
+	int updatePubAll(int[] pubIds, int[] closeIds);
+	int deleteAll(int[] ids);
+	int update(Notice notice);
+	int insert(Notice notice);
+	int delete(int id);
+}
+
+```
