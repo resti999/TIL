@@ -68,27 +68,27 @@ spring.datasource.password=24rkwk
     * 에러 내용: Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured. Reason: Failed to determine a suitable driver class
     * Configuration class로 대체
     ```
-    package com.newlecture.web.config;
+	    package com.newlecture.web.config;
 
-import javax.sql.DataSource;
+	import javax.sql.DataSource;
 
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+	import org.springframework.boot.jdbc.DataSourceBuilder;
+	import org.springframework.context.annotation.Bean;
+	import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class DBConfiguration {
-	
-	@Bean
-	public DataSource datasource() {
-		return DataSourceBuilder.create()
-				.driverClassName("oracle.jdbc.driver.OracleDriver")
-				.url("jdbc:oracle:thin:@localhost:1521/xepdb1")
-				.username("newlec")
-				.password("24rkwk")
-				.build();
+	@Configuration
+	public class DBConfiguration {
+
+		@Bean
+		public DataSource datasource() {
+			return DataSourceBuilder.create()
+					.driverClassName("oracle.jdbc.driver.OracleDriver")
+					.url("jdbc:oracle:thin:@localhost:1521/xepdb1")
+					.username("newlec")
+					.password("24rkwk")
+					.build();
+		}
 	}
-}
 
     ```
 * Mapper 도 객체 생성하는 역할
