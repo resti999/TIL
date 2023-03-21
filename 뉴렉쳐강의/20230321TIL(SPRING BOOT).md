@@ -28,7 +28,7 @@ AND ROWNUM=1;
 <select id="getNext" resultType="com.newlecture.web.entity.Notice">
   		SELECT ID FROM NOTICE
 		WHERE REGDATE &gt;= (SELECT REGDATE FROM NOTICE WHERE ID=#{id})
-		AND ID&gt;(SELECT ID FROM NOTICE WHERE ID=#{id})
+		AND ID&gt;#{id}
 		AND ROWNUM=1
   </select>
   
@@ -38,7 +38,7 @@ AND ROWNUM=1;
 		(
 		SELECT ID FROM NOTICE
 		WHERE REGDATE &lt;= (SELECT REGDATE FROM NOTICE WHERE ID=#{id})
-		AND ID&lt;(SELECT ID FROM NOTICE WHERE ID=#{id})
+		AND ID&lt;#{id}
 		ORDER BY ID DESC
 		) TEMP
 		WHERE ROWNUM =1
