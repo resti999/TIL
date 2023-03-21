@@ -47,46 +47,106 @@ public class NoticeController {
 ```
 * NoticeServie :controller에서 전달받는 만큼 parameter 변경. interface, implements 둘다 . implements만 예시, 또한 dao의 쿼리에 맞는 페이징 데이터 준비
 ```
-package com.newlecture.web.controller.customer;
+package com.newlecture.web.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Service;
 
+import com.newlecture.web.dao.NoticeDao;
 import com.newlecture.web.entity.Notice;
-import com.newlecture.web.service.NoticeService;
 
-@Controller
-@RequestMapping("/customer/notice/")
-public class NoticeController {
+
+@Service
+public class NoticeServiceImp implements NoticeService {
 	
 	@Autowired
-	private NoticeService service;
+	private NoticeDao noticeDao;
 	
-	
-	@RequestMapping("list")
-	public String list(Model model) {
-		
-		int page = 3;
-		String field = "title";
-		String query ="";
-		
-		
-		List<Notice> list = service.getList(page,field,query);
-		
-		model.addAttribute("list", list);
-		
-//		return "/customer/notice/list"; ResourceViewResolver
-		return "customer.notice.list";  // TilesViewResolver
+
+
+	@Override
+	public List<Notice> getList() {
+		return getList(1, "title","");
+	}
+
+	@Override
+	public List<Notice> getList(String field, String query) {
+		return getList(1, field, query);
 	}
 	
-	@RequestMapping("detail")
-	public String detail() {
-		return "customer.notice.detail";
+	@Override
+	public List<Notice> getList(int page, String field, String query) {
+		
+		int size=10;
+		int startNum=1+(page-1)*size; //page 1->0, 2->10
+		int endNum=page*size; //page 1->0, 2->10
+		
+		
+		
+		List<Notice> list = noticeDao.getList(startNum,endNum,field,query);
+		
+		
+		return list;
 	}
+	
+	@Override
+	public Notice get(int id) {
+		
+		Notice notice = noticeDao.get(id);
+		
+		return notice;
+	}
+	
+	@Override
+	public int getCount() {
+		return getCount("title","");
+	}
+
+	@Override
+	public int getCount(String field, String query) {
+		return noticeDao.getCount(field,query);
+	}
+
+	@Override
+	public Notice getNext(int id) {
+		return noticeDao.getNext(id);
+	}
+
+	@Override
+	public Notice getPrev(int id) {
+		return noticeDao.getPrev(id);
+	}
+
+	@Override
+	public int updatePubAll(int[] pubIds, int[] closeIds) {
+		return noticeDao.updatePubAll(pubIds,closeIds);
+	}
+
+	@Override
+	public int deleteAll(int[] ids) {
+		// TODO Auto-generated method stub
+		return noticeDao.deleteAll(ids);
+	}
+
+	@Override
+	public int update(Notice notice) {
+		return noticeDao.update(notice);
+	}
+
+	@Override
+	public int delete(int id) {
+		// TODO Auto-generated method stub
+		return noticeDao.delete(id);
+	}
+
+	@Override
+	public int insert(Notice notice) {
+		// TODO Auto-generated method stub
+		return noticeDao.insert(notice);
+	}
+	
 }
 
 ```
