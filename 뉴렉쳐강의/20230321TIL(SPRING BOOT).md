@@ -22,9 +22,7 @@ AND ROWNUM=1;
 ```
 * HTML XML등에선 꺾음쇠는 태그를 나타내는 특수한 기호기 때문에 크기비교를 나타내는 부호 >< 를 대신하는 ENTITY가 있음
 * mybatis에서 ">=" 부등호를 사용하는 방법은 아래와 같다.
-   1. <![CDATA[>=]]>
-   2. &gt;=
-   3. &gte;
+* ![image](https://user-images.githubusercontent.com/40667871/226632265-43b422f0-294a-45ce-9584-b047bccea27d.png)
 * NoticeDaoMapper.xml : getNext, getPrev query 구현
 ```
 <select id="getNext" resultType="com.newlecture.web.entity.Notice">
