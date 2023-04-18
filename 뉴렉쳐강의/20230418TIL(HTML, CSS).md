@@ -29,3 +29,6 @@
 ![image](https://user-images.githubusercontent.com/40667871/232808847-d2e38ac2-42a2-482e-9696-6c5c59f9d584.png)
 * 어느 권고안도 따르지 않고 자기 브라우저만의 렌더링방식 사용 : Quirks
 * HTML 5 부터는 <!DOCTYPE html> 하나만 존재 -> w3c의 렌더링 방식 따를지말지만 결정!
+
+ # 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의 10강 - 실습환경 준비하기
+ * vscode : 편집기에서 plugin 방식으로 ide로 변모중, eclipse랑 비슷
