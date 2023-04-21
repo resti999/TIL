@@ -7,5 +7,4 @@
 * 각각 필요 도구들
 ![image](https://user-images.githubusercontent.com/40667871/233394961-afb821e2-d5e6-49c3-aa8b-6e14f0f73cda.png)
 
-# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의 12강 - 실습을 위한 파일 구조 생성하기
-* 
+
