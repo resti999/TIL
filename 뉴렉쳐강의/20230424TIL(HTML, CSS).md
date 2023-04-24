@@ -7,7 +7,7 @@
 * / : 절대경로
 * ./ : 자기자신(상대경로)
 * ../ : 상위폴더(상대경로)
-* 상대경로를 지양해야한다. 왜? 수정하는 일이 생길 때 절대경로로 하면 수정할 일이 많아진다.
+* 상대경로를 지향해야한다. 왜? 수정하는 일이 생길 때 절대경로로 하면 수정할 일이 많아진다.
 
 # 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의 14강 - SGML은 무엇인가 그리고 HTML과의 관계는?
 * 단일 태그 : 어떤 내용을 감싸는게 아니고 태그만 사용되는 태그
@@ -36,4 +36,19 @@
 * 시멘틱 웹을 위해 태그를 사용자정의해가며 사용하는 xml, xhtml, xhtml 이면 닫는 태그 꼭 해줘야함, 왜? 형식이 중요하기 때문에 태그는 사용자가 만들고
 
 # 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의 16강 - HTML의 버전과 HTML5의 탄생배경
-* 
+![image](https://user-images.githubusercontent.com/40667871/234022654-530b846c-413a-46b5-a12c-9836bdb3d9f4.png)
+* XHTML은 다른 버전.
+* w3c와 브라우저 회사 충돌
+![image](https://user-images.githubusercontent.com/40667871/234022843-6b2e0530-e419-4874-9b61-894a4d78c480.png)
+* xhtml2.0부터 호환성 확 떨어짐 기존의 html과도
+![image](https://user-images.githubusercontent.com/40667871/234023208-e7763303-fab3-462b-8c7f-47f59d378b7c.png)
+* 브라우저 회사들이 짜증나서 html5.0만듬 4.0갖고
+* WHATWG(WEB HYPERTEXT Application Technology Working Group)
+![image](https://user-images.githubusercontent.com/40667871/234023737-2fc025d4-454f-42e1-b194-3342a39fa65c.png)
+* 플래시나 그런것 없이 웹 문서에서 직접 미디어들을 다루겠다 - html 5의 의미, 브라우저 자체제공
+![image](https://user-images.githubusercontent.com/40667871/234024143-05e32c21-41d1-4c6d-b5a8-5c6356f66d45.png)
+* html 5 완성단계, 초록색은 완성됨, 나머지는 구현중
+![image](https://user-images.githubusercontent.com/40667871/234024411-35a50595-6894-4235-a6f5-74cd7f0a4790.png)
+* w3c에서는 첫번째를 지향함
+
+
