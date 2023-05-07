@@ -70,7 +70,35 @@
 * grow는 설정하지 않으면 0(여백차지x)  , shrink는 설정하지 않으면 1(줄어듬), basis 설정하지 않으면 컨텐트 크기
 
 # 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 49강 - flex-grow/flex-shrink/flex-basis의 단축 속성과 값
+![image](https://user-images.githubusercontent.com/40667871/236663212-e9b2b49b-8688-417c-ba9c-7537b8fb8837.png)
+* mdn 등의 docs,reference를 잘 활용하자.
+
+# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 50강 - flex-lines(drection,wrap,flow)
+![image](https://user-images.githubusercontent.com/40667871/236663934-c1a478f6-612d-4449-a9dd-b01ba8ada51b.png)
+![image](https://user-images.githubusercontent.com/40667871/236663943-0c6b7070-e8dc-4864-aebc-86706083749c.png)
+![image](https://user-images.githubusercontent.com/40667871/236664190-21f6f1dd-6f68-4570-8e5f-9985901531e1.png)
+* flex-wrap: wrap :   각 item의 크기보다 브라우저창이 작아지면 나머지 item들은 밑으로 내려가게 설정
+* 슬라이딩 설정 할 때 nowrap 설정
+* direction이 column일 땐 wrap안먹지만 부모 컨테이너가 높이가 설정될 경우는 wrap먹음
+* 수직 방향에서 래핑에서 여백이 생기면? grow옵션을 줘야함 
+![image](https://user-images.githubusercontent.com/40667871/236664258-2ca42982-acbf-47ec-b823-ecbc084a7233.png)
+* flex-flow 속성은  direction과 wrap을 한번에 표현할 수 있다.
+
+# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 51강 - Ordering
+![image](https://user-images.githubusercontent.com/40667871/236665449-2ab7cf9e-ef6e-4504-b90b-f4b38aa2a6ad.png)
+* 기본 순서는 태그순서
+![image](https://user-images.githubusercontent.com/40667871/236665471-64635dae-5471-44b5-aec4-290af80345bc.png)
+* order 숫자 작을 수록 처음에 나옴 direction에 따라 다름
+* 특정한 것들끼리 위치를 바꾸려면 전체다 번호를 매겨야한다.
+
+# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 52강 - Box Alignment #1 : justify-content
+![image](https://user-images.githubusercontent.com/40667871/236665996-4104402c-54d7-4fed-a48a-612ff30e86fd.png)
+* justify-contetnt : main axis
+* align-items : cross axis
+![image](https://user-images.githubusercontent.com/40667871/236666061-be6b87d1-4f83-41cf-9d4a-47051a0cf0f2.png)
+* 수직방향에서는 여백이 없으므로 container 에 높이를 반드시 설정해야만 한다.
+* 여백이 없으면 정렬할 필요가 없다.
+* justify-content : space-around : 컨텐트 수 X2만큼 여백이 나눠짐 컨텐트 양 옆에 여백 위치
+
+# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 53강 - align-items/align-content/align-self
 * 
-
-
-
