@@ -50,15 +50,20 @@
 ![image](https://user-images.githubusercontent.com/40667871/236660503-c81dfab0-dba6-4287-8bfb-7659dc7a34e5.png)
 * flex 와 inline-flex 의 차이 : flex box 안의 태그들이 inline 태그들이냐 box 태그들이냐의 차이, 개념상으로는 이렇지만 사용하는 방법은 동일
 * flex box의 등장으로 박스들을 오른쪽으로 정렬할 수 있게 됐다.
-* flex-direction:column 으로 하면 원래처럼 수직으로 정렬   row가 defalut고 수평정렬.  row-reverse는 오른쪽 정렬
+* flex-direction:flex-box에서 설정, column 으로 하면 원래처럼 수직으로 정렬   row가 defalut고 수평정렬.  row-reverse는 오른쪽 정렬
 * flex item 의 넓이 default는 컨텐츠의 크기만큼 크기를 가짐. 높이도 컨텐트 크기만큼
 * flex item 의 css속성 중 width를 지정해도 넓이 지정가능 -방향성에 상관없이 너비, 높이 정할 때
 *  flex item의 축 방향 별 크기를 정하는 것  flex item 에서 flex-basis 속성 설정
 
 # 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 47강 - flex-grow
+* flex box의 빈 영역 없이 item 들로 꽉 채우고 싶을 때 아이템들에 flex-grow:1  사용
+* flex-grow:1  : item 들이 차지하고  남은 **빈 공백**을 각 아이템이 차지하는 비율
+* 부여받은 여백의 크기가 3배라는게 중요. 컨테츠의 크기가 3배라는 것이 아님
+* flex box에 적용하는 속성과 flex item에 부여하는 속성 구분 잘해야함
+* 한 item 만 flex-grow 속성을 가지면 속성값이 무엇이든 그 item만 여백을 가진다. 속성값은 의미가 없다.
+
+# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 48강 - flex-shrink
 * 
-
-
 
 
 
