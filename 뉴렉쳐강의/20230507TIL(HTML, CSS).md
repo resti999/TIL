@@ -30,4 +30,36 @@
 * 위 문제 해결 가능한 것이 sticky, 꼭 top을 줘야함. 내위치는 뺏기지 않으면서 특정 화면 위치 고수 가능
 
 # 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 45강 - Flex 레이아웃과 용어
+![image](https://user-images.githubusercontent.com/40667871/236659323-b290da08-028a-4788-9677-930c257e2c06.png)
+* 컨텐트 = 텍스트
+* 3.0 에 flex, grid가 등장
+![image](https://user-images.githubusercontent.com/40667871/236659382-158944a8-d643-4fc1-9a80-6678b83645b2.png)
+![image](https://user-images.githubusercontent.com/40667871/236659401-e42d327f-4732-4de2-84cc-9e8d90741d3c.png)\
+* 1,2를 포함하는 박스의 속성을 display:flex , 자손들은 flex item이 돼서 속성에 따라 배치됨
+* main 축과 cross축으로 모든걸 나눔
+![image](https://user-images.githubusercontent.com/40667871/236659445-65d21869-0d3e-49e3-8b5f-9d6d793c81b4.png)
+![image](https://user-images.githubusercontent.com/40667871/236659487-9ee8e9e3-a242-4e4f-9470-4607e46d62e5.png)
+![image](https://user-images.githubusercontent.com/40667871/236659494-12dcbdec-a224-4b20-8172-3737d3a546c5.png)
+![image](https://user-images.githubusercontent.com/40667871/236659503-60d27bdf-58c2-4a7b-b0c5-3c7581c92435.png)
+![image](https://user-images.githubusercontent.com/40667871/236659505-5361bf25-c974-4ef1-9e6f-b371c34b4563.png)
+
+
+
+# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 46강 - Flex Direction / Basis
+![image](https://user-images.githubusercontent.com/40667871/236659746-16de7769-09cb-43c6-a4c6-aef2f34d0280.png)
+![image](https://user-images.githubusercontent.com/40667871/236660503-c81dfab0-dba6-4287-8bfb-7659dc7a34e5.png)
+* flex 와 inline-flex 의 차이 : flex box 안의 태그들이 inline 태그들이냐 box 태그들이냐의 차이, 개념상으로는 이렇지만 사용하는 방법은 동일
+* flex box의 등장으로 박스들을 오른쪽으로 정렬할 수 있게 됐다.
+* flex-direction:column 으로 하면 원래처럼 수직으로 정렬   row가 defalut고 수평정렬.  row-reverse는 오른쪽 정렬
+* flex item 의 넓이 default는 컨텐츠의 크기만큼 크기를 가짐. 높이도 컨텐트 크기만큼
+* flex item 의 css속성 중 width를 지정해도 넓이 지정가능 -방향성에 상관없이 너비, 높이 정할 때
+*  flex item의 축 방향 별 크기를 정하는 것  flex item 에서 flex-basis 속성 설정
+
+# 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 47강 - flex-grow
 * 
+
+
+
+
+
+
