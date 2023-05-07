@@ -101,4 +101,21 @@
 * justify-content : space-around : 컨텐트 수 X2만큼 여백이 나눠짐 컨텐트 양 옆에 여백 위치
 
 # 프론트엔드, 백엔드 개발자를 위한 HTML5, CSS3 강의, 인강 53강 - align-items/align-content/align-self
-* 
+![image](https://user-images.githubusercontent.com/40667871/236667160-9e11386f-2a25-45fe-8e11-e67b0b3b3bd3.png)
+![image](https://user-images.githubusercontent.com/40667871/236667202-a361fbcc-0f79-420f-ae37-36763d3db1c0.png)
+* baseline : 컨텐트를 기준으로 정렬 박스크기 상관없이, 컨텐트의 밑줄을 맞춤
+* stretch : 부모 높이만큼 꽉채움
+* align=self : 각 아이템의 위와같은 cross-axis 정렬옵션 줄 때 사용
+![image](https://user-images.githubusercontent.com/40667871/236667443-9fb6e588-8982-4552-9f5f-7c03f782e8de.png)
+* align-items 의 기본 값은 stretch
+![image](https://user-images.githubusercontent.com/40667871/236668834-7cdea2c0-75fb-415e-b479-0a8addb649d5.png)
+* align-content는 align-items 와는 다르게 한 줄을 통째로 패킹해서 같이 움직임
+* flex box 의 라인? wrap 을 통해서 층 수가 늘어 나 때 한 층을 한 라인이라고 한다.
+* align-items 를 적용하면 위아래르 꽉채워서 부모크기만큼 차지하던게 컨텐트 크기로 바뀌고 정렬됨
+* align-items와 align-content의 차이점: content가 층을 무시하고 모든 층을 한번에 정렬함, content 는 여백을 사이에 꽂아넣는 space옵션이 있음, items 는 자체적으로 나누기 때문에 없음
+* align-items:center
+![image](https://user-images.githubusercontent.com/40667871/236669361-e51238c7-8ad2-4154-aec4-657bd69d3b59.png)
+* align-content:center
+![image](https://user-images.githubusercontent.com/40667871/236669348-bec43fc5-0c81-4170-b779-03ab2d8f84d6.png)
+
+
